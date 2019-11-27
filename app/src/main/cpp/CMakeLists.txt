@@ -27,6 +27,15 @@ add_library( # Sets the name of the library.
         # Provides a relative path to your source file(s).
         native-lib.cpp)
 
+add_library( # Sets the name of the library.
+        jniLearn-lib
+
+        # Sets the library as a shared library.
+        SHARED
+
+        # Provides a relative path to your source file(s).
+        jniLearn.cpp)
+
 
 add_library(
         opencv-lib
@@ -66,3 +75,10 @@ target_link_libraries( # Specifies the target library.
         ${jnigraphics-lib}
         ${log-lib})
 
+target_link_libraries( # Specifies the target library.
+        jniLearn-lib
+        opencv-lib
+        # Links the target library to the log library
+        # included in the NDK.
+        ${jnigraphics-lib}
+        ${log-lib})

@@ -15,19 +15,19 @@ static const char *kTAG = "hello-JniHandler";
   ((void)__android_log_print(ANDROID_LOG_ERROR, kTAG, __VA_ARGS__))
 
 
-using namespace cv;
-
 extern "C"
 JNIEXPORT jintArray JNICALL
-Java_com_dex_opencvlearn_OpenCvActivity_grayProc(JNIEnv *env, jclass clazz, jintArray pixels, jint w,
-                                               jint h) {
+Java_com_dex_opencvlearn_OpenCvActivity_grayProc(JNIEnv *env, jclass clazz, jintArray pixels,
+                                                 jint w,
+                                                 jint h) {
     jint *cbuf;
     cbuf = env->GetIntArrayElements(pixels, JNI_FALSE);
     if (cbuf == NULL) {
         return 0;
     }
+    cv::Mat imgData(h, w, CV_8UC4, (unsigned char *) cbuf);
 
-    Mat imgData(h, w, CV_8UC4, (unsigned char *) cbuf);
+//    cv::Mat imgData = cv::imread("android.jpg", cv::IMREAD_UNCHANGED);
 
     uchar *ptr = imgData.ptr(0);
     for (int i = 0; i < w * h; i++) {

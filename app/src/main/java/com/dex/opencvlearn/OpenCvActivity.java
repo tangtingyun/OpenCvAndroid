@@ -26,18 +26,20 @@ public class OpenCvActivity extends AppCompatActivity {
         mViewOpen = findViewById(R.id.iv_open_deal);
         Button btnOpen = findViewById(R.id.btn_open);
         mBmp = BitmapFactory.decodeResource(getResources(), R.drawable.android);
-        viewById.setImageBitmap(mBmp);
+//        viewById.setImageBitmap(mBmp);
+
+        int w = mBmp.getWidth();
+        int h = mBmp.getHeight();
+        int[] pixels = new int[w * h];
+        mBmp.getPixels(pixels, 0, w, 0, 0, w, h);
+        int[] resultInt = grayProc(pixels, w, h);
+        Bitmap resultImg = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        resultImg.setPixels(resultInt, 0, w, 0, 0, w, h);
+        mViewOpen.setImageBitmap(resultImg);
+
         btnOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int w = mBmp.getWidth();
-                int h = mBmp.getHeight();
-                int[] pixels = new int[w * h];
-                mBmp.getPixels(pixels, 0, w, 0, 0, w, h);
-                int[] resultInt = grayProc(pixels, w, h);
-                Bitmap resultImg = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-                resultImg.setPixels(resultInt, 0, w, 0, 0, w, h);
-                mViewOpen.setImageBitmap(resultImg);
             }
         });
 
